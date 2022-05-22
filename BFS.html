@@ -1,0 +1,54 @@
+<script>
+let r = 2;
+let c = 2;
+
+let r_data = [1, 0 ];
+let c_data = [0, 1 ];
+
+function V(Visit, a, b)
+{
+	if (a < 0 || b < 0
+		|| a >= r || b >= c)
+		return false;
+
+	if (Visit[a][b])
+		return false;
+	return true;
+}
+
+function bFS( g, Visit, a, b)
+{
+	let p = [];
+	p.push([a, b ]);
+	Visit[a][b] = true;
+
+	while (p.length!=0) {
+
+		let n = p[0];
+		let u = n[0];
+		let v = n[1];
+
+		document.write( g[u][v] + " ");
+        p.shift();
+		
+		for (var x = 0; x < 2; x++) 
+		{
+            let Adj_u = u + r_data[x];
+			let Adj_v = v + c_data[x];
+
+			if (V(Visit, Adj_u, Adj_v)) 
+			{
+				p.push([Adj_u, Adj_v ]);
+				Visit[Adj_u][Adj_v] = true;
+			}
+		}
+	}
+}
+let g = [[1, 2],
+		[5, 6]]
+		
+let Visit = Array.from(Array(r), ()=> Array(c).fill(false));
+bFS(g, Visit, 0, 0);
+
+
+</script>
